@@ -1,0 +1,47 @@
+spec_version: "0.1.0"
+name: agent-flow
+version: 0.8.1
+description: >
+  Agent Flow is a real-time visualization tool for Claude Code and Codex agent
+  orchestration. It renders live execution as an interactive node graph — showing
+  tool calls, sub-agent branching, and coordination as they happen. Available as
+  a VS Code extension and a standalone web app (npx agent-flow-app), it helps
+  developers understand agent behavior, debug tool-call chains, identify
+  performance bottlenecks, and build intuition for writing better prompts.
+license: Apache-2.0
+model:
+  preferred: anthropic:claude-sonnet-4-6
+  compatible:
+    - anthropic:claude-sonnet-4-6
+    - openai:codex
+runtime:
+  entrypoint: npx agent-flow-app
+  max_turns: null
+  environment:
+    - name: AGENT_FLOW_RUNTIME
+      description: "Which runtime to watch: auto | claude | codex (default: auto)"
+      required: false
+    - name: CODEX_HOME
+      description: "Custom Codex home directory (default: ~/.codex)"
+      required: false
+skills:
+  - name: live-agent-visualization
+    description: >
+      Renders Claude Code and Codex agent executions as interactive node graphs
+      in real time via Claude Code hooks and JSONL log tailing.
+  - name: multi-session-tracking
+    description: >
+      Tracks multiple concurrent agent sessions and displays them side-by-side,
+      tagged by runtime (Claude Code or Codex).
+  - name: timeline-and-transcript
+    description: >
+      Provides a full execution timeline, file attention heatmap, and message
+      transcript for every recorded agent session.
+  - name: jsonl-replay
+    description: >
+      Accepts any JSONL event log file path and replays or live-tails agent
+      activity for post-hoc debugging and analysis.
+compliance:
+  risk_tier: standard
+  supervision:
+    human_in_the_loop: none
